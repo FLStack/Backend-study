@@ -1,3 +1,19 @@
 spring:
-  application:
-    name: study-backend
+  datasource:
+    # Pooler 주소와 6543 포트 적용
+    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require
+    # Pooler 사용 시 프로젝트 ID가 포함된 대시보드의 User 명칭 사용
+    username: postgres.bgincodjshyqtvecamzz
+    # 설정하신 비밀번호
+    password: "MySupabase2026Pass"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        # DB 접속 과정 오류 시 방어용 방언(Dialect) 명시
+        dialect: org.hibernate.dialect.PostgreSQLDialect
