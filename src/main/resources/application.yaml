@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres.bgincodjshyqtvecamzz}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db.bgincodjshyqtvecamzz.supabase.co:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD} # 기본값 없이 환경변수 참조
     driver-class-name: org.postgresql.Driver
 
   jpa:
