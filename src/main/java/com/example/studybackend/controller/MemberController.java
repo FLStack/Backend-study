@@ -10,18 +10,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*") // 프론트엔드 통신 허용
+@CrossOrigin(origins = {"http://localhost:5173", "https://frontend-nu-coral-33.vercel.app"}, allowCredentials = "true")
 public class MemberController {
 
     private final MemberRepository memberRepository;
 
-    // 프론트에서 이름을 보내면 DB에 저장
     @PostMapping
     public Member createMember(@RequestBody Member member) {
         return memberRepository.save(member);
     }
 
-    // DB에 저장된 모든 목록 조회
     @GetMapping
     public List<Member> getMembers() {
         return memberRepository.findAll();
