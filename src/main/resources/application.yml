@@ -1,16 +1,24 @@
 spring:
   datasource:
-    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require
-    username: postgres.bgincodjshyqtvecamzz
+    # pooler 대신 db.[project-ref].supabase.co 형태의 Direct 주소 사용
+    # 만약 아래 URL로 연결 안 될 경우, Supabase 대시보드 > Project Settings > Database에서 JDBC URL을 직접 확인해 보세요.
+    url: jdbc:postgresql://db.bgincodjshyqtvecamzz.supabase.co:5432/postgres?sslmode=require
+    username: postgres
     password: Ineedf126soi
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 3
-      connection-timeout: 20000
+      minimum-idle: 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  test:
+    database:
+      replace: none
