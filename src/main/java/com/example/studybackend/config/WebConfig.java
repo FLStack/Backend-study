@@ -9,10 +9,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("https://frontend-nu-coral-33.vercel.app", "http://localhost:5173", "http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        registry.addMapping("/**") // 모든 경로에 대해
+                .allowedOriginPatterns(
+                        "http://localhost:5173",
+                        "https://*.vercel.app" // Vercel 배포 주소 모두 허용
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // DELETE 및 OPTIONS 허용 필수!
                 .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }

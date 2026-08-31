@@ -3,6 +3,7 @@ package com.example.studybackend.controller;
 import com.example.studybackend.domain.Member;
 import com.example.studybackend.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,5 +24,12 @@ public class MemberController {
     @GetMapping
     public List<Member> getMembers() {
         return memberRepository.findAll();
+    }
+
+    // Member 삭제 API 추가
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
+        memberRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
