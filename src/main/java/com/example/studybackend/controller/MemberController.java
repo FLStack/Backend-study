@@ -3,8 +3,6 @@ package com.example.studybackend.controller;
 import com.example.studybackend.domain.Member;
 import com.example.studybackend.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,26 +10,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:5173", "https://frontend-nu-coral-33.vercel.app"}, allowCredentials = "true")
+@CrossOrigin(origins = "*") // 프론트엔드 CORS 허용
 public class MemberController {
 
     private final MemberRepository memberRepository;
 
-    @Transactional
-    @PostMapping
-    public Member createMember(@RequestBody Member member) {
-        return memberRepository.save(member);
-    }
-
+    // 1. 전체 조회 (GET)
     @GetMapping
     public List<Member> getMembers() {
         return memberRepository.findAll();
     }
 
-    @Transactional // DB 삭제
+    // 2. 멤버 저장 (POST) - role 추가 지원
+    @PostMapping
+    public Member createMember(@RequestBody Member member) {
+        if (member.getRole() == null || member.getRole().isBlank()) {
+            member.setRole("FE 개발자"); // role이 없는 경우 기본값
+        }
+        return memberRepository.save(member);
+    }
+
+    // 3. 멤버 삭제 (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
+    public void deleteMember(@PathVariable Long id) {
         memberRepository.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 }

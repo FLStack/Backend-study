@@ -19,4 +19,7 @@ public class Member {
     private Long id;
 
     private String name;
+
+    // 역할 필드 추가 (기본값 설정이나 구분을 위해 사용)
+    private String role;
 }
